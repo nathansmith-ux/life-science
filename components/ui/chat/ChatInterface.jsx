@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link";
 import { useUIState, useActions } from "ai/rsc"
 import SubmitIcon from "../icons/SubmitIcon";
 import LifeScienceIcon from "../icons/LifeScienceIcon";
@@ -90,7 +91,7 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
           <span className="sr-only">Search</span>
         </button>
       </form>
-      <p className="mb-2 mx-8 text-sm text-black italic text-center">{disclaimer}</p>
+      <p className="mb-2 mx-8 text-sm text-black text-center">{disclaimer}<Link href="https://whitewallsmedia.ca"><span className="font-normal ml-2 underline decoration-sky-500">Learn More About Us</span></Link></p>
     </>
   )
 }
