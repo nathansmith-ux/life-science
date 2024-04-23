@@ -1,13 +1,13 @@
 import { createAI, createStreamableUI, getMutableAIState } from 'ai/rsc';
 import OpenAI from 'openai';
-import getJournalData from "@/helpers/life-sciences/getJournalData";
-import JournalCardGrid from "@/components/ui/life-science/JournalCardGrid";
-import Spinner from "@/components/ui/loading/Spinner";
-import AICard from "@/components/ui/card/AICard";
+import getJournalData from "../../helpers/life-sciences/getJournalData";
+import JournalCardGrid from "../../components/ui/life-science/JournalCardGrid";
+import Spinner from "../../components/ui/loading/Spinner";
+import AICard from "../../components/ui/card/AICard";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
 async function submitUserMessage(userInput) {
   'use server';

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { useUIState, useActions } from "ai/rsc"
-import SubmitIcon from "@/components/ui/icons/SubmitIcon";
-import LifeScienceIcon from "@/components/ui/icons/LifeScienceIcon";
+import SubmitIcon from "../icons/SubmitIcon";
+import LifeScienceIcon from "../icons/LifeScienceIcon";
 import InitialPrompts from "./InitialPrompts";
 
 export default function ChatInterface({ security, placeholderText, promptOne, promptTwo, disclaimer }) {
