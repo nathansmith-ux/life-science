@@ -1,5 +1,5 @@
 import { createAI, createStreamableUI, getMutableAIState } from 'ai/rsc';
-import OpenAI from 'openai';
+import getAiResponse from "../../helpers/life-sciences/getAiResponse"
 import getJournalData from "../../helpers/life-sciences/getJournalData";
 import JournalCardGrid from "../../components/ui/life-science/JournalCardGrid";
 import Spinner from "../../components/ui/loading/Spinner";
@@ -30,7 +30,7 @@ async function submitUserMessage(userInput) {
   );
 
   function decideAction() {
-    if (userInput.toLowerCase().includes("journal") || userInput.toLowerCase().includes("research") ||  userInput.toLowerCase().includes("papers")) {
+    if (userInput.toLowerCase().includes("journal") || userInput.toLowerCase().includes("research") ||  userInput.toLowerCase().includes("papers") ||  userInput.toLowerCase().includes("paper")) {
       return createJournalResponse();
     } else {
       return createTextResponse();
@@ -59,27 +59,26 @@ async function submitUserMessage(userInput) {
       reply.done(<div>There was an error generating your journal data</div>);
     }
   }
+  async function createTextResponse() {
+    try {
+      reply.update(
+        <AICard>
+          <Spinner />
+        </AICard>
+      );
 
-  // async function createTextResponse() {
-  //   try {
-  //     reply.update(
-  //       <AICard>
-  //         <Spinner />
-  //       </AICard>
-  //     );
+      const response = await getAiResponse(userInput);
 
-  //     const res = await runOpenAICompletion(openai, {
-  //       model: 'gpt-3.5-turbo-0125',
-  //       stream: true,
-  //       messages: [{ role: 'user', content: userInput }],
-  //     });
+      reply.done(
+        <AICard>
+          {response}
+        </AICard>
+      );
 
-  //     reply.done(<AICard><div>{res}</div></AICard>);
-
-  //   } catch (error) {
-  //     reply.done(<div>There was an error handling your request</div>);
-  //   }
-  // }
+    } catch {
+      reply.done(<div>There was an error generating your response</div>);
+    }
+  }
 
   decideAction();
   

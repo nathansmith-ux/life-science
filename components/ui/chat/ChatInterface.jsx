@@ -5,8 +5,9 @@ import { useUIState, useActions } from "ai/rsc"
 import SubmitIcon from "../icons/SubmitIcon";
 import LifeScienceIcon from "../icons/LifeScienceIcon";
 import InitialPrompts from "./InitialPrompts";
+import UserCard from "../card/UserCard"
 
-export default function ChatInterface({ security, placeholderText, promptOne, promptTwo, disclaimer }) {
+export default function ChatInterface({ security, placeholderText, promptOne, promptTwo, promptThree, promptFour, disclaimer }) {
 
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useUIState();
@@ -23,15 +24,16 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
           onPromptClick={handleInput}
           promptOne={promptOne}
           promptTwo={promptTwo}
+          promptThree={promptThree}
+          promptFour={promptFour}
           security={security}
         />
       )}
-      <section className="overflow-y-auto w-3/4">
+      <section className="overflow-y-auto w-11/12">
       {
-        // View messages in UI state
         messages.map((message) => (
           <div 
-            className="p-4 mb-3"
+            className="p-4 mb-3 text-black"
             key={message.id}
           >
             {message.display}
@@ -44,21 +46,25 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
         className={`flex items-center w-11/12 md:w-3/4 mx-auto mb-2 bg-emerald-500 p-10 rounded-lg`}
         onSubmit={async (e) => {
           e.preventDefault();
-          // Add user message to UI state
-          setMessages((currentMessages) => [
-            ...currentMessages,
-            {
-              id: Date.now(),
-              display: <div>{inputValue}</div>,
-            },
-          ]);
-          // Submit and get response message
-          const responseMessage = await submitUserMessage(inputValue);
-          setMessages((currentMessages) => [
-            ...currentMessages,
-            responseMessage,
-          ]);
+          
+          const newUserMessage = {
+            id: Date.now(),  
+            display: (
+              <UserCard>
+                <p>{inputValue}</p>
+              </UserCard>
+            )
+          };
+        
+          setMessages(currentMessages => [...currentMessages, newUserMessage]);
+          
           setInputValue('');
+          
+          const responseMessage = await submitUserMessage(inputValue);
+          setMessages(currentMessages => [...currentMessages, {
+            ...responseMessage,
+            responseMessage
+          }]);
         }}
       >
         <label htmlFor="simple-security-search" className="sr-only">Search</label>
@@ -84,7 +90,7 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
           <span className="sr-only">Search</span>
         </button>
       </form>
-      <p className="mb-2 mx-8 text-sm italic text-center">{disclaimer}</p>
+      <p className="mb-2 mx-8 text-sm text-black italic text-center">{disclaimer}</p>
     </>
   )
 }

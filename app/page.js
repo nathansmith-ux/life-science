@@ -8,8 +8,10 @@ export default function Home() {
         <ChatInterface 
           security={false}
           placeholderText="Ask about different types of diseases and find research papers"
-          promptOne="Find Research Papers On [topic]"
-          promptTwo="What is [disease]?"
+          promptOne="Find Research Papers On Liver Disease"
+          promptTwo="Find Research Papers On Alzheimer's Disease"
+          promptThree="Find Research Papers On Cancer"
+          promptFour="Find Research Papers On Diabetes"
           disclaimer="This should not be considered and/or replace medical advice"
         />
       </main>
