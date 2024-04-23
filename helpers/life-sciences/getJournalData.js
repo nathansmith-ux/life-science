@@ -2,7 +2,7 @@ export default async function getJournalData(topicOne) {
   const apiKey = process.env.SCIENCEJOURNAL_API_KEY;
 
   // // Construct the API URL
-  const url = `https://api.springernature.com/meta/v2/json?q=${topicOne}&s=1&p=6&api_key=${apiKey}`;
+  const url = `https://api.springernature.com/meta/v2/json?q=${topicOne}&api_key=${apiKey}`;
 
   try {
     const response = await fetch(url);
