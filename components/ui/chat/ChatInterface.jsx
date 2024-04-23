@@ -1,18 +1,34 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link";
-import { useUIState, useActions } from "ai/rsc"
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useUIState, useActions } from "ai/rsc";
 import SubmitIcon from "../icons/SubmitIcon";
 import LifeScienceIcon from "../icons/LifeScienceIcon";
 import InitialPrompts from "./InitialPrompts";
-import UserCard from "../card/UserCard"
+import UserCard from "../card/UserCard";
 
 export default function ChatInterface({ security, placeholderText, promptOne, promptTwo, promptThree, promptFour, disclaimer }) {
-
   const [inputValue, setInputValue] = useState('');
+  const [placeholder, setPlaceholder] = useState(placeholderText);
   const [messages, setMessages] = useUIState();
   const { submitUserMessage } = useActions();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setPlaceholder("Find A Paper");
+      } else {
+        setPlaceholder(placeholderText); 
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [placeholderText]);
 
   const handleInput = (prompt) => {
     setInputValue(prompt)
@@ -68,7 +84,7 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
           }]);
         }}
       >
-        <label htmlFor="simple-security-search" className="sr-only">Search</label>
+        <label htmlFor="simple-search" className="sr-only">Search</label>
         <div className="relative w-full">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <LifeScienceIcon />
@@ -77,7 +93,7 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
             type="text"
             id="simple-search"
             className={`bg-emerald-700 border border-gray-300 text-white placeholder-white text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5`}
-            placeholder={placeholderText}
+            placeholder={placeholder}
             required
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -93,5 +109,5 @@ export default function ChatInterface({ security, placeholderText, promptOne, pr
       </form>
       <p className="mb-2 mx-8 text-sm text-black text-center">{disclaimer}<Link href="https://whitewallsmedia.ca"><span className="font-normal ml-2 underline decoration-sky-500">Learn More About Us</span></Link></p>
     </>
-  )
+  );
 }

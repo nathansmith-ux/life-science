@@ -20,7 +20,7 @@ export default function InitialPrompts({ onPromptClick, promptOne, promptTwo, pr
           alt="A logo of a maze against white"
         />
         </Link>
-        <h1 className="hidden md:block md:text-2xl xl:text-2xl text-white">Find Any Scientific Paper To Help Your Studies - Powered By Springer</h1>
+        <h1 className="text-md ml-2 md:text-2xl xl:text-2xl text-white">Find Any Scientific Paper To Help Your Studies - Powered By Springer</h1>
       </div>
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -40,7 +40,7 @@ export default function InitialPrompts({ onPromptClick, promptOne, promptTwo, pr
               <p className={promptStyles}>{promptTwo}</p>
             </button>
           </div>
-          <div>
+          <div className="hidden lg:block">
             <button 
               onClick={() => onPromptClick(promptThree)}
               className="group bg-emerald-500 w-full p-4 rounded-lg hover:bg-blue-500 transition-colors duration-150 border-black shadow-lg"
@@ -48,7 +48,7 @@ export default function InitialPrompts({ onPromptClick, promptOne, promptTwo, pr
               <p className={promptStyles}>{promptThree}</p>
             </button>
           </div>
-          <div>
+          <div className="hidden lg:block">
             <button 
               onClick={() => onPromptClick(promptFour)}
               className="group bg-emerald-500 w-full p-4 rounded-lg hover:bg-blue-500 transition-colors duration-150 border-black shadow-lg"

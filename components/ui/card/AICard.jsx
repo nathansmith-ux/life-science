@@ -4,7 +4,7 @@ export default function AICard({ children }) {
 
 
   return (
-    <div className={`flex bg-orange-50 p-8 rounded-lg`}>
+    <div className={`lg:flex bg-orange-50 p-8 rounded-lg`}>
       <Image 
         src="/life-science-ai.webp"
         height="60"
